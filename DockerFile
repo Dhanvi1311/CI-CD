@@ -1,12 +1,29 @@
-#Dockerfile
-# Use a base image with a lightweight web server
-FROM nginx:alpine
+# Use an official Node.js runtime as the base image
+FROM node:14 AS builder
 
-# Set the working directory to the web root
-WORKDIR /usr/share/nginx/html
+# Set the working directory inside the container
+WORKDIR /app
 
-# Copy the website files to the container
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the entire application code to the container
 COPY . .
 
-# Expose port 80 for the web server
+# Run the build script
+RUN npm run build
+
+# Use an official Nginx image to serve the frontend
+FROM nginx:alpine
+
+# Copy the build output from the previous stage to the Nginx web root
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose the port the app runs on
 EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

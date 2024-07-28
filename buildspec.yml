@@ -6,42 +6,46 @@ env:
     ECR_REPO_URI: "144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp"  # Replace with your ECR repository URI
     GITHUB_REPO: "https://github.com/Dhanvi1311/CI-CD.git"  # Replace with your GitHub repository URL
     IMAGE_NAME: "my-app"  # Replace with your Docker image name
-    # Add any additional environment variables you need here
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 14  # Specify the Node.js runtime version
     commands:
       - echo Installing dependencies...
       - apt-get update
       - apt-get install -y docker.io
       - apt-get install -y awscli
       - apt-get install -y git
+      - npm install # Install npm dependencies
 
   pre_build:
     commands:
       - echo Logging in to AWS ECR...
-      - $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI)
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI
       - echo Cloning the GitHub repository...
       - git clone $GITHUB_REPO
       - cd $(basename $GITHUB_REPO .git)  # Navigate into the cloned repo directory
       - echo Checking out the correct branch...
       - git checkout $CODEBUILD_SOURCE_VERSION
+      - echo Running lint tests...
+      - npm run lint # Run linting to check code quality
+      - echo Running unit tests...
+      - npm test # Run unit tests
 
   build:
     commands:
+      - echo Building the project with Webpack...
+      - npm run build # Assuming 'npm run build' executes Webpack
       - echo Building the Docker image...
-      - docker build -t $IMAGE_NAME -f DockerFile .
-      - echo Running unit tests...
-      - # Add your unit test command here, e.g., pytest or npm test
-      - echo Scanning code for issues...
-      - # Add your code scan command here, e.g., sonar-scanner
+      - docker build -t $IMAGE_NAME -f Dockerfile .
       - echo Tagging Docker image...
       - docker tag $IMAGE_NAME:latest $ECR_REPO_URI:latest
 
   post_build:
     commands:
       - echo Scanning Docker image for vulnerabilities...
-      - # Add your image scan command here, e.g., docker scan $IMAGE_NAME:latest or trivy image $ECR_REPO_URI:latest
+      - docker scan $IMAGE_NAME:latest
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
 
@@ -51,6 +55,4 @@ artifacts:
 
 cache:
   paths:
-    - '/root/.m2/**/*'  # Example for Maven build cache
-    - '/root/.cache/pip/**/*'  # Example for Python pip cache
-    - '/root/.npm/**/*'  # Example for npm cache
+    - '/root/.npm/**/*'  # Cache npm dependencies for faster builds
