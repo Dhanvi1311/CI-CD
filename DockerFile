@@ -1,0 +1,12 @@
+#Dockerfile
+# Use a base image with a lightweight web server
+FROM nginx:alpine
+
+# Set the working directory to the web root
+WORKDIR /usr/share/nginx/html
+
+# Copy the website files to the container
+COPY . .
+
+# Expose port 80 for the web server
+EXPOSE 80
