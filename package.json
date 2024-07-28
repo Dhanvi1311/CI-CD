@@ -1,0 +1,24 @@
+{
+    "name": "my-frontend-project",
+    "version": "1.0.0",
+    "description": "A sample project with unit tests and linting",
+    "main": "index.js",
+    "scripts": {
+      "test": "jest",                   
+      "lint": "eslint src/**/*.js",     
+      "build": "webpack --config webpack.config.js"  
+    },
+    "devDependencies": {
+      "jest": "^27.0.6",               
+      "eslint": "^7.32.0",             
+      "webpack": "^5.38.1",            
+      "webpack-cli": "^4.7.2"          
+    },
+    "jest": {
+      "verbose": true,                
+      "testMatch": ["**/tests/**/*.js"] 
+    },
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  
