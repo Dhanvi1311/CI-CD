@@ -13,11 +13,12 @@ phases:
       nodejs: 14  # Specify the Node.js runtime version
     commands:
       - echo Installing dependencies...
-      - apt-get update
-      - apt-get install -y docker.io
-      - apt-get install -y awscli
-      - apt-get install -y git
-      - npm install # Install npm dependencies
+      - yum update -y
+      - yum install -y docker
+      - yum install -y aws-cli
+      - yum install -y git
+      - npm install   ## Installing npm dependencies
+
 
   pre_build:
     commands:
