@@ -15,9 +15,11 @@ phases:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y docker
-      - yum install -y aws-cli
-      - yum install -y git
-      - npm install   ## Installing npm dependencies
+      - curl -sL https://rpm.nodesource.com/setup_14.x | bash -
+      - yum install -y nodejs
+      - npm install -g npm # Updates npm to latest version
+      - npm install -g eslint jest webpack webpack-cli
+
 
 
   pre_build:
