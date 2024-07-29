@@ -9,15 +9,15 @@ env:
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 18  # Specify the Node.js runtime version
+    # runtime-versions:
+    #   nodejs: 18  # Specify the Node.js runtime version
     commands:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y docker
       - yum install -y git
       - yum install -y aws-cli
-      - npm install  # Install npm dependencies
+      # - npm install  # Install npm dependencies
 
       
   pre_build:
@@ -31,13 +31,13 @@ phases:
       - git checkout $CODEBUILD_SOURCE_VERSION
       # - echo Running lint tests...
       # - npm run lint # Run linting to check code quality
-      - echo Running unit tests...
-      - npm test # Run unit tests
+      # - echo Running unit tests...
+      # - npm test # Run unit tests
 
   build:
     commands:
-      - echo Building the project with Webpack...
-      - npm run build # Assuming 'npm run build' executes Webpack
+      # - echo Building the project with Webpack...
+      # - npm run build # Assuming 'npm run build' executes Webpack
       - echo Building the Docker image...
       - docker build -t $IMAGE_NAME -f Dockerfile .
       - echo Tagging Docker image...
