@@ -10,17 +10,15 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 14  # Specify the Node.js runtime version
+      nodejs: 18  # Specify the Node.js runtime version
     commands:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y docker
       - yum install -y git
-      - curl -sL https://rpm.nodesource.com/setup_18.x | bash -
-      - yum install -y nodejs
       - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       - unzip awscliv2.zip
-      - ./aws/install
+      - ./aws/install -- update
       - npm install  # Install npm dependencies
 
       
