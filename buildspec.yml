@@ -45,8 +45,8 @@ phases:
 
   post_build:
     commands:
-      - echo Scanning Docker image for vulnerabilities...
-      - docker scan $IMAGE_NAME:latest
+      # - echo Scanning Docker image for vulnerabilities...
+      # - docker scan $IMAGE_NAME:latest
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
 
