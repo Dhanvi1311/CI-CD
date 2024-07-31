@@ -50,10 +50,8 @@ env:
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
 
-artifacts:
-  files:
-    - '**/*'
 
-cache:
-  paths:
-    - '/root/.npm/**/*'  # Cache npm dependencies for faster builds
+artifacts:
+  files: imagedefinitions.json
+
+
