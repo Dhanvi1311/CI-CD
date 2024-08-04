@@ -7,19 +7,7 @@ env:
     GITHUB_REPO: "https://github.com/Dhanvi1311/CI-CD.git"  # Replace with your GitHub repository URL
     IMAGE_NAME: "my-app"  # Replace with your Docker image name
 
-# phases:
-#   install:
-#     # runtime-versions:
-#     #   nodejs: 18  # Specify the Node.js runtime version
-#     commands:
-#       - echo Installing dependencies...
-#       - yum update -y
-#       - yum install -y docker
-#       - yum install -y git
-#       - yum install -y aws-cli
-      # - npm install  # Install npm dependencies
-
-      
+phases:      
   pre_build:
     commands:
       - echo Logging in to AWS ECR...
