@@ -16,7 +16,8 @@ phases:
       - git clone $GITHUB_REPO
       - cd $(basename $GITHUB_REPO .git)
       - echo Checking out the correct branch...
-      - git checkout $CODEBUILD_SOURCE_VERSION
+      - BRANCH=${CODEBUILD_SOURCE_VERSION:-main}
+      # - git checkout $CODEBUILD_SOURCE_VERSION
       # Uncomment these lines if linting and testing are required
       # - echo Running lint tests...
       # - npm run lint
