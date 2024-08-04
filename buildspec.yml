@@ -49,6 +49,7 @@ env:
       # - docker scan $IMAGE_NAME:latest
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
+      - ls -al
       - echo Writing image definitions file...
       - printf '[{"name":"cloudapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp:latest"}]' > imagedefinitions.json
       
