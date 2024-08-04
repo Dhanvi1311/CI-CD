@@ -19,7 +19,7 @@ env:
 #       - yum install -y aws-cli
       # - npm install  # Install npm dependencies
 
-phases:    
+  
   pre_build:
     commands:
       - echo Logging in to AWS ECR...
