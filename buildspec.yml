@@ -19,7 +19,7 @@ env:
 #       - yum install -y aws-cli
       # - npm install  # Install npm dependencies
 
-# phases:
+phases:
   pre_build:
     commands:
       - echo Logging in to AWS ECR...
@@ -54,10 +54,7 @@ env:
       - printf pwd  # Print working directory
       - ls -al  # List all files in the curre
       - echo Writing image definitions file...
-      - printf '[{"name":"cloudapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp:latest"}]' > imagedefinitions.json
-      - cat imagedefinitions.json 
-      
-
+      - printf '[{"name":"myapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
 
