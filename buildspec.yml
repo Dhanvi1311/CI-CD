@@ -18,7 +18,8 @@ env:
 #       - yum install -y git
 #       - yum install -y aws-cli
       # - npm install  # Install npm dependencies
- phases:
+
+phases:
   pre_build:
     commands:
       - echo Logging in to AWS ECR...
@@ -51,6 +52,7 @@ env:
       - echo Writing image definitions file...
       - printf '[{"name":"myapp","imageUri":"ECR_REPO_URI"}]' $ECR_REPO_URI:latest > imagedefinitions.json
       
+
 artifacts:
     files: imagedefinitions.json
 
