@@ -2,10 +2,10 @@ version: 0.2
 
 env:
   variables:
-    AWS_REGION: "ca-central-1"  # Replace with your AWS region
-    ECR_REPO_URI: "144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp"  # Replace with your ECR repository URI
-    GITHUB_REPO: "https://github.com/Dhanvi1311/CI-CD.git"  # Replace with your GitHub repository URL
-    IMAGE_NAME: "my-app"  # Replace with your Docker image name
+    AWS_REGION: "ca-central-1"
+    ECR_REPO_URI: "144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp"
+    GITHUB_REPO: "https://github.com/Dhanvi1311/CI-CD.git"
+    IMAGE_NAME: "my-app"
 
 phases:      
   pre_build:
@@ -14,18 +14,20 @@ phases:
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI
       - echo Cloning the GitHub repository...
       - git clone $GITHUB_REPO
-      - cd $(basename $GITHUB_REPO .git)  # Navigate into the cloned repo directory
+      - cd $(basename $GITHUB_REPO .git)
       - echo Checking out the correct branch...
       - git checkout $CODEBUILD_SOURCE_VERSION
+      # Uncomment these lines if linting and testing are required
       # - echo Running lint tests...
-      # - npm run lint # Run linting to check code quality
+      # - npm run lint
       # - echo Running unit tests...
-      # - npm test # Run unit tests
+      # - npm test
 
   build:
     commands:
+      # Uncomment if you need to build the project
       # - echo Building the project with Webpack...
-      # - npm run build # Assuming 'npm run build' executes Webpack
+      # - npm run build
       - echo Building the Docker image...
       - docker build -t $IMAGE_NAME -f Dockerfile .
       - echo Tagging Docker image...
@@ -35,14 +37,14 @@ phases:
     commands:
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
-      - echo Writing image definitions file...
-      - printf '[{"name":"mywebsite","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
+      # - echo Writing image definitions file...
+      # - printf '[{"name":"mywebsite","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
+      # - mkdir -p base_location  # Ensure the directory exists
+      # - mv imagedefinitions.json base_location/  # Move the artifact into the base directory
 
-
-artifacts:
-  files:
-    - imagedefinitions.json
-  # discard-paths: yes  # Discards the directory paths, only the file is saved
-  # base-directory: .  # Uses the current directory to find the artifact
-
-
+# artifacts:
+#   files:
+#     - '**/*'  # Include all files recursively from the base directory
+#   base-directory: base_location  # Directory to collect artifacts from
+#   name: dev-backend-build-artifact  # Name of the artifact
+#   discard-paths: no  # Keep directory structure
