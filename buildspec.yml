@@ -30,14 +30,14 @@ phases:
     commands:
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
-      - echo Writing image definitions file...
-      - printf '[{"name":"mywebsite","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
-      - mkdir -p base_location  # Ensure the directory exists
-      - mv imagedefinitions.json base_location/  # Move the artifact into the base directory
+      # - echo Writing image definitions file...
+      # - printf '[{"name":"mywebsite","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
+      # - mkdir -p base_location  # Ensure the directory exists
+      # - mv imagedefinitions.json base_location/  # Move the artifact into the base directory
 
-artifacts:
-  files:
-    - '**/*'  # Include all files recursively from the base directory
-  base-directory: base_location  # Directory to collect artifacts from
-  name: dev-backend-build-artifact  # Name of the artifact
-  discard-paths: no  # Keep directory structure
+# artifacts:
+#   files:
+#     - '**/*'  # Include all files recursively from the base directory
+#   base-directory: base_location  # Directory to collect artifacts from
+#   name: dev-backend-build-artifact  # Name of the artifact
+#   discard-paths: no  # Keep directory structure
