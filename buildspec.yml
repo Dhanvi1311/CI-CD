@@ -54,7 +54,7 @@ env:
       - printf pwd  # Print working directory
       - ls -al  # List all files in the curre
       - echo Writing image definitions file...
-      - printf '[{"name":"mycloudapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp:latest"}]' > imagedefinitions.json
+      - printf '[{"name":"myapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp:latest"}]' > imagedefinitions.json
       - cat imagedefinitions.json 
       
 
