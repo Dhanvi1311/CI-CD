@@ -54,7 +54,7 @@ env:
       - printf pwd  # Print working directory
       - ls -al  # List all files in the curre
       - echo Writing image definitions file...
-      - printf '[{"name":"myapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"myapp","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
 
