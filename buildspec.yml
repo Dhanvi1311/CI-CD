@@ -50,7 +50,7 @@ env:
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"cloudapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp"}]' > imagedefinitions.json
+      - printf '[{"name":"myapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp"}]' > imagedefinitions.json
       
 
 artifacts:
