@@ -49,11 +49,11 @@ env:
       # - docker scan $IMAGE_NAME:latest
       - echo Pushing Docker image to ECR...
       - docker push $ECR_REPO_URI:latest
-      # - echo Writing image definitions file...
-      # - printf '[{"name":"mywebsite","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      - echo Writing image definitions file...
+      - printf '[{"name":"mywebsite","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
 
 
-# artifacts:
-#   files: imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
 
 
