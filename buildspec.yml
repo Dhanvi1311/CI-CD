@@ -51,8 +51,6 @@ env:
       - echo Writing image definitions file...
       - printf '[{"name":"myapp","imageUri":"%s"}]' $ECR_REPO_URI:latest > imagedefinitions.json
       
-
-
 artifacts:
     files: imagedefinitions.json
 
