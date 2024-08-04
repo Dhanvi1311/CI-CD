@@ -40,6 +40,9 @@ phases:
 
 
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
+  discard-paths: yes  # Discards the directory paths, only the file is saved
+  base-directory: .  # Uses the current directory to find the artifact
 
 
