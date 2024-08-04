@@ -51,7 +51,7 @@ env:
       - docker push $ECR_REPO_URI:latest
       - ls -al
       # - echo Current directory:
-      - pwd  # Print working directory
+      - printf pwd  # Print working directory
       - ls -al  # List all files in the curre
       - echo Writing image definitions file...
       - printf '[{"name":"mycloudapp","imageUri":"144425769143.dkr.ecr.ca-central-1.amazonaws.com/cloudapp:latest"}]' > imagedefinitions.json
